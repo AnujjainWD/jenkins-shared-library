@@ -1,15 +1,21 @@
 package org.demo
 
+// Utility class to send email notifications
 class Utils implements Serializable {
-    def steps
 
-    Utils(steps) {
-        this.steps = steps
+    def script
+
+    Utils(script) {
+        this.script = script
     }
 
-    def printEnvInfo(env) {
-        steps.echo "🔧 Job Name: ${env.JOB_NAME}"
-        steps.echo "🌿 Branch: ${env.BRANCH_NAME}"
-        steps.echo "📂 Workspace: ${env.WORKSPACE}"
+    // Send email on success
+    def sendSuccessEmail() {
+        script.echo "Sending success email..."
+        script.mail(
+            to: 'recipient@example.com', // Receiver's email
+            subject: "Jenkins Pipeline Success",
+            body: "Hello,\n\nYour Jenkins pipeline has successfully completed!\n\nRegards,\nDevOps Team"
+        )
     }
 }
