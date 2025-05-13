@@ -1,24 +1,15 @@
 package org.demo
 
 class Utils implements Serializable {
-
     def steps
 
-    Utils(steps = null) {
+    Utils(steps) {
         this.steps = steps
     }
 
-    def printEnvInfo() {
-        steps.echo "🔧 ENVIRONMENT: ${steps.env.ENVIRONMENT ?: 'dev'}"
-        steps.echo "🏷️ BUILD NUMBER: ${steps.env.BUILD_NUMBER}"
-        steps.echo "🕒 TIMESTAMP: ${new Date()}"
-    }
-
-    def notifySlack(String status) {
-        def color = status == "SUCCESS" ? "good" : "danger"
-        steps.slackSend(
-            color: color,
-            message: "*Build ${status}*: Job '${steps.env.JOB_NAME} [#${steps.env.BUILD_NUMBER}]' - ${steps.env.BUILD_URL}"
-        )
+    def printEnvInfo(env) {
+        steps.echo "🔧 Job Name: ${env.JOB_NAME}"
+        steps.echo "🌿 Branch: ${env.BRANCH_NAME}"
+        steps.echo "📂 Workspace: ${env.WORKSPACE}"
     }
 }
